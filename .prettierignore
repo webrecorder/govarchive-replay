@@ -1,0 +1,5 @@
+# Ignore everything except src
+.github
+.husky
+assets
+dist

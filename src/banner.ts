@@ -251,8 +251,10 @@ export class WBBanner extends LitElement {
       const wbinfo = self.__wbinfo;
       banner.timestamp = wbinfo.timestamp || "";
       banner.origin = new URL(wbinfo.url).origin;
-      banner.collName = wbinfo.collName || localStorage.getItem("__wb_collName") || "";
-      banner.collUrl = wbinfo.collUrl || localStorage.getItem("__wb_collUrl") || "";
+      banner.collName =
+        wbinfo.collName || localStorage.getItem("__wb_collName") || "";
+      banner.collUrl =
+        wbinfo.collUrl || localStorage.getItem("__wb_collUrl") || "";
     }
 
     const html = document.querySelector("html");

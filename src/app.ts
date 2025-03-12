@@ -5,7 +5,12 @@ import {
   type TemplateResult,
   type CSSResultGroup,
 } from "lit";
-import { rwpLogoAnimated, serviceWorkerActivated, SWManager, wrapCss } from "replaywebpage/utils";
+import {
+  rwpLogoAnimated,
+  serviceWorkerActivated,
+  SWManager,
+  wrapCss,
+} from "replaywebpage/utils";
 import { property } from "lit/decorators.js";
 
 export class ProxyInitApp extends LitElement {
@@ -80,7 +85,7 @@ export class ProxyInitApp extends LitElement {
 
     try {
       await swmanager.register();
-    } catch (e) {
+    } catch (_e) {
       this.errorMessage = swmanager.renderErrorReport();
     }
 
@@ -96,7 +101,10 @@ export class ProxyInitApp extends LitElement {
 
     navigator.serviceWorker.controller!.postMessage(msg);
 
-    await Promise.race([p, new Promise<void>(resolve => setTimeout(resolve, 30000))]);
+    await Promise.race([
+      p,
+      new Promise<void>((resolve) => setTimeout(resolve, 30000)),
+    ]);
 
     window.location.reload();
   }
@@ -131,15 +139,21 @@ export function addArchiveInit() {
   customElements.define("web-archive", ProxyInitApp);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (self as any).initWebArchive = async ({archiveSourceUrl, proxyOrigin, proxyTs = "", bannerScript = "./proxyui.js", collName, collUrl} : {
-    archiveSourceUrl: string,
-    proxyOrigin: string,
-    proxyTs?: string,
-    bannerScript?: string,
-    collName?: string,
-    collUrl?: string
-  }
-  ) => {
+  (self as any).initWebArchive = async ({
+    archiveSourceUrl,
+    proxyOrigin,
+    proxyTs = "",
+    bannerScript = "./proxyui.js",
+    collName,
+    collUrl,
+  }: {
+    archiveSourceUrl: string;
+    proxyOrigin: string;
+    proxyTs?: string;
+    bannerScript?: string;
+    collName?: string;
+    collUrl?: string;
+  }) => {
     const elem = document.createElement("web-archive") as ProxyInitApp;
     document.body.appendChild(elem);
 
@@ -150,6 +164,11 @@ export function addArchiveInit() {
       self.localStorage.setItem("__wb_collUrl", collUrl);
     }
 
-    return elem.initProxyApp(archiveSourceUrl, proxyOrigin, proxyTs, bannerScript);
+    return elem.initProxyApp(
+      archiveSourceUrl,
+      proxyOrigin,
+      proxyTs,
+      bannerScript,
+    );
   };
 }
