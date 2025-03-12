@@ -39,7 +39,10 @@ module.exports = {
     "@typescript-eslint/no-inferrable-types": "warn",
     "@typescript-eslint/non-nullable-type-assertion-style": "warn",
     "@typescript-eslint/prefer-for-of": "warn",
-    "@typescript-eslint/prefer-nullish-coalescing": "warn",
+    "@typescript-eslint/prefer-nullish-coalescing": [
+      "warn",
+      { ignorePrimitives: { string: true } },
+    ],
     "@typescript-eslint/prefer-optional-chain": "warn",
     "@typescript-eslint/prefer-string-starts-ends-with": "error",
     "@typescript-eslint/no-meaningless-void-operator": "error",
