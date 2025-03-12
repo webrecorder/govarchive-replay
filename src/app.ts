@@ -8,7 +8,7 @@ import {
 import { serviceWorkerActivated, SWManager } from "replaywebpage/utils";
 import rwpLogoAnimated from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color-animated.svg";
 import { property } from "lit/decorators.js";
-import { unsafeSVG } from "replaywebpage";
+import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 
 declare let self: Window & {
   initWebArchive: ({

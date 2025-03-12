@@ -5,7 +5,7 @@ import { tsToDate, dateTimeFormatter } from "replaywebpage/utils";
 import rwpIcon from "@webrecorder/hickory/icons/brand/replaywebpage-icon-solid.svg";
 import refreshIcon from "bootstrap-icons/icons/arrow-clockwise.svg";
 import chevronDown from "bootstrap-icons/icons/chevron-down.svg";
-import { unsafeSVG } from "replaywebpage";
+import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 
 declare let self: Window & {
   __wbinfo?: {
