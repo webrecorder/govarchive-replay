@@ -243,6 +243,8 @@ export class WBBanner extends LitElement {
       return;
     }
 
+    addAnalytics();
+
     customElements.define(tagName, bannerCls);
 
     const banner = document.createElement(tagName) as WBBanner;
@@ -271,4 +273,11 @@ export class WBBanner extends LitElement {
       }, 1000);
     });
   }
+}
+
+function addAnalytics() {
+  const script = document.createElement("script");
+  script.src = "https://p.webrecorder.net/js/script.outbound-links.js";
+  script.dataset.domain = "govarchive.us";
+  document.head.appendChild(script);
 }
