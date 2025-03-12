@@ -1,0 +1,23 @@
+{
+  "name": "gov-archive-banner",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode production",
+    "build-dev": "webpack --mode development"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "lit": "^3.2.1",
+    "replaywebpage": "^2.3.3",
+    "tsc": "^2.0.4",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "raw-loader": "^4.0.2",
+    "ts-loader": "^9.5.2",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  }
+}
