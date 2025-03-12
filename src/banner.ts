@@ -1,8 +1,11 @@
 import { html, css, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
 
-import { tsToDate, rwpIcon, dateTimeFormatter } from "replaywebpage/utils";
-import refreshIcon from "~assets/arrow-clockwise.svg";
+import { tsToDate, dateTimeFormatter } from "replaywebpage/utils";
+import rwpIcon from "@webrecorder/hickory/icons/brand/replaywebpage-icon-solid.svg";
+import refreshIcon from "bootstrap-icons/icons/arrow-clockwise.svg";
+import chevronDown from "bootstrap-icons/icons/chevron-down.svg";
+import { unsafeSVG } from "replaywebpage";
 
 declare let self: Window & {
   __wbinfo?: {
@@ -55,7 +58,7 @@ export class WBBanner extends LitElement {
         align-content: center;
         border-bottom: solid;
         border-color: #a39d8f;
-        border-width: 0.1rem;
+        border-width: 1px;
       }
       .refresh-button {
         color: white;
@@ -82,21 +85,18 @@ export class WBBanner extends LitElement {
         && summary::-webkit-details-marker {
           display: none;
         }
-
-        && summary::after {
-          content: "▼";
-          margin-left: 0.3rem;
-          font-size: 0.7rem;
-        }
-        &&[open] summary:after {
-          content: "▲";
-          margin-left: 0.3rem;
-          font-size: 0.7rem;
-        }
       }
       .banner-text {
         margin: 0;
-        text-wrap: wrap;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        .chevron {
+          transition: 150ms ease transform;
+        }
+      }
+      details[open] .chevron {
+        transform: rotate(-180deg);
       }
       .details-flexcontainer {
         background-color: #fefcf7;
@@ -111,7 +111,7 @@ export class WBBanner extends LitElement {
         justify-content: center;
         border-bottom: solid;
         border-color: #a39d8f;
-        border-width: 0.1rem;
+        border-width: 1px;
       }
       .details-container {
         width: 100%;
@@ -138,6 +138,13 @@ export class WBBanner extends LitElement {
           line-height: 1.2rem;
         }
       }
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+      .icon {
+        display: inline-block;
+      }
     `;
   }
 
@@ -157,17 +164,21 @@ export class WBBanner extends LitElement {
           target="_blank"
           title="ReplayWeb.page"
         >
-          <fa-icon
-            size="1.0rem"
-            style="color: white;"
-            .svg=${rwpIcon}
+          <span
+            class="icon"
+            style="color: white; width: 1rem; height: 1rem;"
             aria-label="ReplayWeb.page Logo"
             role="img"
-          ></fa-icon>
+          >
+            ${unsafeSVG(rwpIcon)}
+          </span>
         </a>
         <details class="banner-text-container">
           <summary class="banner-text" title="Archive Details">
             You are viewing an archived version of this page from ${dateStr}
+            <span class="icon chevron" style="width: 1rem; height: 1rem;"
+              >${unsafeSVG(chevronDown)}</span
+            >
           </summary>
           ${this.renderExpanded()}
         </details>
@@ -179,12 +190,13 @@ export class WBBanner extends LitElement {
           aria-label="Full Reload"
         >
           <span class="icon is-small">
-            <fa-icon
-              size="1.1em"
+            <span
+              style="width: 1.1em; height: 1.1em;"
               class="has-text-grey"
               aria-hidden="true"
-              .svg="${refreshIcon}"
-            ></fa-icon>
+            >
+              ${unsafeSVG(refreshIcon)}
+            </span>
           </span>
         </button>
       </header>

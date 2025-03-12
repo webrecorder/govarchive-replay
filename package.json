@@ -5,12 +5,13 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --mode production",
-    "build-dev": "webpack --mode development",
+    "dev": "webpack serve --mode development",
     "lint": "eslint ./",
     "format": "prettier --write ./"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@webrecorder/hickory": "^0.4.0",
+    "bootstrap-icons": "^1.11.3",
     "lit": "^3.2.1",
     "replaywebpage": "^2.3.3",
     "tsc": "^2.0.4",
@@ -27,6 +28,7 @@
     "raw-loader": "^4.0.2",
     "ts-loader": "^9.5.2",
     "webpack": "^5.98.0",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
   }
 }

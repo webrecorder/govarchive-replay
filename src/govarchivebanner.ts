@@ -39,10 +39,10 @@ export class GovArchiveBanner extends WBBanner {
             </p>
             <p>
               It is part of our effort to archive United States Government
-              websites as part of
+              websites as part of the
               <a target="_blank" href="https://eotarchive.org/"
-                >End-of-Term Archive.</a
-              >
+                >End of Term Web Archive</a
+              >.
             </p>
             <p>
               <strong

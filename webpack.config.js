@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        use: ["raw-loader"],
+        type: "asset/source",
       },
     ],
   },

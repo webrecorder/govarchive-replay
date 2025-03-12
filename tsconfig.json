@@ -11,6 +11,7 @@
     "declarationDir": "./dist/types",
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "sourceMap": true,

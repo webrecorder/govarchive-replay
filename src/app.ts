@@ -5,20 +5,35 @@ import {
   type TemplateResult,
   type CSSResultGroup,
 } from "lit";
-import {
-  rwpLogoAnimated,
-  serviceWorkerActivated,
-  SWManager,
-  wrapCss,
-} from "replaywebpage/utils";
+import { serviceWorkerActivated, SWManager } from "replaywebpage/utils";
+import rwpLogoAnimated from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color-animated.svg";
 import { property } from "lit/decorators.js";
+import { unsafeSVG } from "replaywebpage";
+
+declare let self: Window & {
+  initWebArchive: ({
+    archiveSourceUrl,
+    proxyOrigin,
+    proxyTs,
+    bannerScript,
+    collName,
+    collUrl,
+  }: {
+    archiveSourceUrl: string;
+    proxyOrigin: string;
+    proxyTs?: string;
+    bannerScript?: string;
+    collName?: string;
+    collUrl?: string;
+  }) => Promise<void>;
+};
 
 export class ProxyInitApp extends LitElement {
   @property({ type: String })
   errorMessage?: TemplateResult<1> | string;
 
   static get styles(): CSSResultGroup {
-    return wrapCss(ProxyInitApp.appStyles);
+    return ProxyInitApp.appStyles;
   }
 
   static get appStyles(): CSSResultGroup {
@@ -92,11 +107,18 @@ export class ProxyInitApp extends LitElement {
     await serviceWorkerActivated();
 
     const p = new Promise<void>((resolve) => {
-      navigator.serviceWorker.addEventListener("message", (event) => {
-        if (event.data.msg_type === "collAdded") {
-          resolve();
-        }
-      });
+      navigator.serviceWorker.addEventListener(
+        "message",
+        (
+          event: MessageEvent<{
+            msg_type: string;
+          }>,
+        ) => {
+          if (event.data.msg_type === "collAdded") {
+            resolve();
+          }
+        },
+      );
     });
 
     navigator.serviceWorker.controller!.postMessage(msg);
@@ -117,13 +139,13 @@ export class ProxyInitApp extends LitElement {
     return html`
       <section class="container is-align-content-center">
         <div class="is-justify-content-center is-flex">
-          <fa-icon
-            size="5rem"
-            style="margin-bottom: 1rem;"
-            .svg=${rwpLogoAnimated}
+          <span
+            style="margin-bottom: 1rem;width: 5rem; height: 5rem;"
             aria-label="ReplayWeb.page Logo"
             role="img"
-          ></fa-icon>
+          >
+            ${unsafeSVG(rwpLogoAnimated)}
+          </span>
         </div>
         <div class="level">
           <div class="level-item has-text-centered">
@@ -138,8 +160,7 @@ export class ProxyInitApp extends LitElement {
 export function addArchiveInit() {
   customElements.define("web-archive", ProxyInitApp);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (self as any).initWebArchive = async ({
+  self.initWebArchive = async ({
     archiveSourceUrl,
     proxyOrigin,
     proxyTs = "",
