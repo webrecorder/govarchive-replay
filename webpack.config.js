@@ -1,5 +1,10 @@
 const path = require("path");
+const webpack = require("webpack");
+const TerserPlugin = require("terser-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
+
+// Copyright banner text
+const BANNER_TEXT = `proxyui.js is a component of the ReplayWeb.page (https://replayweb.page) system, Copyright (C) 2020-${new Date().getFullYear()}, Webrecorder Software. Licensed under the Affero General Public License v3.'`;
 
 /** @type {import("webpack").Configuration} */
 module.exports = {
@@ -16,6 +21,14 @@ module.exports = {
   },
   devServer: {
     static: __dirname,
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+      }),
+    ],
   },
   module: {
     rules: [
@@ -44,4 +57,7 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new webpack.BannerPlugin(BANNER_TEXT),
+  ]
 };
