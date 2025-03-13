@@ -82,7 +82,7 @@ export class GovArchiveBanner extends WBBanner {
               ></strong>
             </p>
             <p>
-              Browsertrix is Webrecorder's state-of-the-art web archiving
+              Browsertrix is Webrecorder’s state-of-the-art web archiving
               platform that enables you to archive, curate, and replay web
               content, even if the original site is changed or goes offline.
               <a
