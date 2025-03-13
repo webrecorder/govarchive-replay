@@ -1,5 +1,6 @@
 import { addArchiveInit } from "./app";
 import { GovArchiveBanner } from "./govarchivebanner";
+import "construct-style-sheets-polyfill";
 
 if (
   navigator.serviceWorker.controller &&
@@ -9,4 +10,5 @@ if (
   GovArchiveBanner.addBanner("gov-archive-banner", GovArchiveBanner);
 } else {
   addArchiveInit();
+  GovArchiveBanner.addBanner("gov-archive-banner", GovArchiveBanner);
 }

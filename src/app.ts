@@ -9,6 +9,7 @@ import { serviceWorkerActivated, SWManager } from "replaywebpage/utils";
 import rwpLogoAnimated from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color-animated.svg";
 import { property } from "lit/decorators.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
+import { theme } from "./theme";
 
 declare let self: Window & {
   initWebArchive: ({
@@ -31,6 +32,16 @@ declare let self: Window & {
 export class ProxyInitApp extends LitElement {
   @property({ type: String })
   errorMessage?: TemplateResult<1> | string;
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    if (this.shadowRoot) {
+      this.shadowRoot.adoptedStyleSheets = [
+        ...this.shadowRoot.adoptedStyleSheets,
+        theme,
+      ];
+    }
+  }
 
   static get styles(): CSSResultGroup {
     return ProxyInitApp.appStyles;
@@ -137,21 +148,17 @@ export class ProxyInitApp extends LitElement {
     }
 
     return html`
-      <section class="container is-align-content-center">
-        <div class="is-justify-content-center is-flex">
-          <span
-            style="margin-bottom: 1rem;width: 5rem; height: 5rem;"
-            aria-label="ReplayWeb.page Logo"
-            role="img"
-          >
-            ${unsafeSVG(rwpLogoAnimated)}
-          </span>
+      <section
+        class="grid min-h-full m-4 gap-4 place-content-center place-items-center"
+      >
+        <div
+          aria-label="ReplayWeb.page Logo"
+          role="img"
+          class="*:size-full size-20 inline-block"
+        >
+          ${unsafeSVG(rwpLogoAnimated)}
         </div>
-        <div class="level">
-          <div class="level-item has-text-centered">
-            <div>Loading web archive...</div>
-          </div>
-        </div>
+        Loading web archive...
       </section>
     `;
   }

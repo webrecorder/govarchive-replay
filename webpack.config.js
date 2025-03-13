@@ -28,6 +28,17 @@ module.exports = {
         },
       },
       {
+        // CSS loaded as raw string and used as a CSSStyleSheet
+        test: /\.css$/,
+        type: "asset/source",
+        include: path.resolve(__dirname, "src"),
+        use: [
+          {
+            loader: "postcss-loader",
+          },
+        ],
+      },
+      {
         test: /\.svg$/,
         type: "asset/source",
       },

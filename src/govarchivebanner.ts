@@ -6,7 +6,7 @@ export class GovArchiveBanner extends WBBanner {
   renderExpanded() {
     return html` <div class="details-flexcontainer">
       <div class="details-container">
-        <div class="details-textsection">
+        <div class="details-textsection prose">
           <div>
             <p>
               <strong
@@ -45,15 +45,13 @@ export class GovArchiveBanner extends WBBanner {
               >.
             </p>
             <p>
-              <strong
-                ><a href="${this.collUrl}" target="_blank"
-                  >View the full ${this.collName} Collection on Browsertrix</a
-                ></strong
+              <a class="font-bold" href="${this.collUrl}" target="_blank"
+                >View the full ${this.collName} Collection on Browsertrix</a
               >
             </p>
           </div>
         </div>
-        <div class="details-textsection">
+        <div class="details-textsection prose prose-a:*:inline-block">
           <div>
             <p>
               <strong

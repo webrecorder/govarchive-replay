@@ -6,6 +6,7 @@ import rwpIcon from "@webrecorder/hickory/icons/brand/replaywebpage-icon-solid.s
 import refreshIcon from "bootstrap-icons/icons/arrow-clockwise.svg";
 import chevronDown from "bootstrap-icons/icons/chevron-down.svg";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
+import { theme } from "./theme";
 
 declare let self: Window & {
   __wbinfo?: {
@@ -32,6 +33,16 @@ export class WBBanner extends LitElement {
   @property({ type: String })
   collUrl = "";
 
+  connectedCallback(): void {
+    super.connectedCallback();
+    if (this.shadowRoot) {
+      this.shadowRoot.adoptedStyleSheets = [
+        ...this.shadowRoot.adoptedStyleSheets,
+        theme,
+      ];
+    }
+  }
+
   static get styles() {
     return css`
       * {
@@ -50,7 +61,6 @@ export class WBBanner extends LitElement {
       .banner {
         width: 100%;
         background: linear-gradient(0deg, #3a5f09 0%, #4d7c0f 100%);
-        font-family: system-ui, sans-serif;
         font-weight: 500;
         padding: 0.25rem 1rem 0.25rem 1rem;
         display: flex;
@@ -131,9 +141,6 @@ export class WBBanner extends LitElement {
         && a {
           color: #035b71;
         }
-        && a:hover {
-          text-underline-offset: 0.2rem;
-        }
         && p {
           line-height: 1.2rem;
         }
@@ -206,7 +213,7 @@ export class WBBanner extends LitElement {
   renderExpanded() {
     return html` <div class="details-flexcontainer">
       <div class="details-container">
-        <div class="details-textsection">
+        <div class="details-textsection prose">
           <div>
             <p>
               This page is a single-domain mirror of the original site from

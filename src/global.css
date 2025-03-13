@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@import "@webrecorder/hickory/tokens/tailwind.css";
+@import "./fonts";
+
+/* Custom dark mode variant for now — eventually we can re-enable default
+behavior when more of our other products support dark mode. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --default-font-family: "Inter Variable";
+  --default-font-feature-settings: "ss04" off, "ss07" on, "ss08" on, "cv10" on;
+
+  /* --font-display: Konsole, "Inter Variable", system-ui, sans-serif;
+  --font-display--font-variation-settings: "wdth" 105, "wght" 650;
+
+  --font-display-wide: Konsole, "Inter Variable", system-ui, sans-serif;
+  --font-display-wide--font-variation-settings: "wdth" 115, "wght" 650;
+
+  --font-display-wider: Konsole, "Inter Variable", system-ui, sans-serif;
+  --font-display-wider--font-variation-settings: "wdth" 137;
+
+  --font-display-product: Konsole, "Inter Variable", system-ui, sans-serif;
+  --font-display-product--font-variation-settings: "wdth" 87, "wght" 800;
+
+  --font-mono:
+    Recursive, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace; */
+}
