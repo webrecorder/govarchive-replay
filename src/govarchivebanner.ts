@@ -9,7 +9,7 @@ export class GovArchiveBanner extends WBBanner {
       style=${`top: ${this.offset}px`}
     >
       <div class="details-container">
-        <div class="details-textsection prose">
+        <div class="details-textsection prose prose-a:*:inline-block">
           <div>
             <p>
               <strong
