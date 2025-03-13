@@ -10,5 +10,4 @@ if (
   GovArchiveBanner.addBanner("gov-archive-banner", GovArchiveBanner);
 } else {
   addArchiveInit();
-  GovArchiveBanner.addBanner("gov-archive-banner", GovArchiveBanner);
 }
