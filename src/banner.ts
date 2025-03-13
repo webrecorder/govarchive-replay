@@ -5,6 +5,7 @@ import { tsToDate, dateTimeFormatter } from "replaywebpage/utils";
 import rwpIcon from "@webrecorder/hickory/icons/brand/replaywebpage-icon-solid.svg";
 import refreshIcon from "bootstrap-icons/icons/arrow-clockwise.svg";
 import chevronDown from "bootstrap-icons/icons/chevron-down.svg";
+import xIcon from "bootstrap-icons/icons/x-lg.svg";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import { theme } from "./theme";
 
@@ -74,13 +75,14 @@ export class WBBanner extends LitElement {
         margin: 0;
         padding: 0;
         width: 100%;
+        height: auto !important;
         z-index: 1000000000;
       }
       .banner {
         width: 100%;
         background: linear-gradient(0deg, #3a5f09 0%, #4d7c0f 100%);
         font-weight: 500;
-        padding: 0.25rem 1rem 0.25rem 1rem;
+        padding: 0.25rem 0.75rem 0.25rem 1rem;
         display: flex;
         gap: 1rem;
         align-content: center;
@@ -93,8 +95,19 @@ export class WBBanner extends LitElement {
         color: white;
         background-color: transparent;
         border: 0px;
-        margin-left: auto;
         cursor: pointer;
+        margin-right: 0.75rem;
+      }
+      .x-button {
+        color: white;
+        background-color: transparent;
+        border: 0px;
+        cursor: pointer;
+      }
+      .controls {
+        margin-left: auto;
+        display: flex;
+        flex-direction: row;
       }
       .banner-top-line {
         display: flex;
@@ -208,23 +221,42 @@ export class WBBanner extends LitElement {
           </summary>
           ${this.renderExpanded()}
         </details>
-        <button
-          class="refresh-button narrow is-borderless"
-          id="refresh"
-          @click="${this.fullReload}"
-          title="Full Reload"
-          aria-label="Full Reload"
-        >
-          <span class="icon is-small">
-            <span
-              style="width: 1.1em; height: 1.1em;"
-              class="has-text-grey"
-              aria-hidden="true"
-            >
-              ${unsafeSVG(refreshIcon)}
+        <div class="controls">
+          <button
+            class="refresh-button narrow is-borderless"
+            id="refresh"
+            @click="${this.fullReload}"
+            title="Full Reload"
+            aria-label="Full Reload"
+          >
+            <span class="icon is-small">
+              <span
+                style="width: 1.1em; height: 1.1em;"
+                class="has-text-grey"
+                aria-hidden="true"
+              >
+                ${unsafeSVG(refreshIcon)}
+              </span>
             </span>
-          </span>
-        </button>
+          </button>
+          <button
+            class="x-button narrow is-borderless"
+            id="close"
+            @click="${this.closeBanner}"
+            title="Close Banner"
+            aria-label="Close Banner"
+          >
+            <span class="icon is-small">
+              <span
+                style="width: 1.1em; height: 1.1em;"
+                class="has-text-grey"
+                aria-hidden="true"
+              >
+                ${unsafeSVG(xIcon)}
+              </span>
+            </span>
+          </button>
+        </div>
       </header>
     `;
   }
@@ -275,12 +307,16 @@ export class WBBanner extends LitElement {
     return false;
   }
 
+  closeBanner() {
+    this.style.display = "none";
+  }
+
   static addBanner(
     tagName = "rwp-web-archive-banner",
     bannerCls: typeof WBBanner,
   ) {
     // only show banner in top frame
-    if (self.top !== top) {
+    if (self.top !== self) {
       return;
     }
 
