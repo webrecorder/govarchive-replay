@@ -318,7 +318,7 @@ export class WBBanner extends LitElement {
 
 function addAnalytics() {
   const script = document.createElement("script");
-  script.src = "https://p.webrecorder.net/js/script.outbound-links.js";
+  script.src = "https://wab.ac/proxy/https://p.webrecorder.net/js/script.outbound-links.js";
   script.defer = true;
   script.dataset.domain = "govarchive.us";
   document.head.appendChild(script);
