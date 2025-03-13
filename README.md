@@ -1,4 +1,4 @@
-## GovArchive.us Proxy UI
+## Replayweb.page Proxy UI for GovArchive.us Sites
 
 This repo contains two aspects of the full page 'proxy' replay UI used on `*.govarchive.us` subdomains:
 - The initial loading screen
