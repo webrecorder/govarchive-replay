@@ -4,7 +4,10 @@ import { WBBanner } from "./banner";
 // GovArchiveBanner
 export class GovArchiveBanner extends WBBanner {
   renderExpanded() {
-    return html` <div class="details-flexcontainer">
+    return html` <div
+      class="details-flexcontainer"
+      style=${`top: ${this.offset}px`}
+    >
       <div class="details-container">
         <div class="details-textsection prose">
           <div>

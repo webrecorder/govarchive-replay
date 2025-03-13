@@ -1,5 +1,5 @@
 import { html, css, LitElement } from "lit";
-import { property, state } from "lit/decorators.js";
+import { property, queryAsync, state } from "lit/decorators.js";
 
 import { tsToDate, dateTimeFormatter } from "replaywebpage/utils";
 import rwpIcon from "@webrecorder/hickory/icons/brand/replaywebpage-icon-solid.svg";
@@ -33,6 +33,20 @@ export class WBBanner extends LitElement {
   @property({ type: String })
   collUrl = "";
 
+  @queryAsync("header.banner")
+  banner: Promise<HTMLElement> | undefined;
+
+  @state()
+  offset = 28;
+
+  readonly #observer = new ResizeObserver((entries) => {
+    this.offset = entries[0].borderBoxSize[0].blockSize;
+    const html = document.querySelector("html");
+    if (html) {
+      html.style.marginTop = `${this.offset}px`;
+    }
+  });
+
   connectedCallback(): void {
     super.connectedCallback();
     if (this.shadowRoot) {
@@ -41,13 +55,18 @@ export class WBBanner extends LitElement {
         theme,
       ];
     }
+    void this.banner?.then((banner) => {
+      this.#observer.observe(banner, { box: "border-box" });
+    });
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.#observer.disconnect();
   }
 
   static get styles() {
     return css`
-      * {
-        box-sizing: border-box;
-      }
       :host {
         position: fixed;
         left: 0;
@@ -66,9 +85,10 @@ export class WBBanner extends LitElement {
         display: flex;
         gap: 1rem;
         align-content: center;
+        border: none;
         border-bottom: solid;
         border-color: #a39d8f;
-        border-width: 1px;
+        border-bottom-width: 1px;
       }
       .refresh-button {
         color: white;
@@ -116,12 +136,12 @@ export class WBBanner extends LitElement {
         width: 100%;
         position: absolute;
         left: 0;
-        top: 37.5px;
         display: flex;
         justify-content: center;
+        border: none;
         border-bottom: solid;
-        border-color: #a39d8f;
-        border-width: 1px;
+        border-bottom-color: #a39d8f;
+        border-bottom-width: 1px;
       }
       .details-container {
         width: 100%;
@@ -211,7 +231,10 @@ export class WBBanner extends LitElement {
   }
 
   renderExpanded() {
-    return html` <div class="details-flexcontainer">
+    return html` <div
+      class="details-flexcontainer"
+      style=${`top: ${this.offset}px`}
+    >
       <div class="details-container">
         <div class="details-textsection prose">
           <div>
