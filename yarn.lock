@@ -908,10 +908,10 @@
   dependencies:
     "@iconify/types" "^2.0.0"
 
-"@webrecorder/wabac@^2.21.3":
-  version "2.21.3"
-  resolved "https://registry.yarnpkg.com/@webrecorder/wabac/-/wabac-2.21.3.tgz#2a376e848e1bf09dbe98e78a6c41034f8cef80d9"
-  integrity sha512-RgWFCRj1VEa0o2i8HTIlr5ol3W1C0ySI3cdBb8Q1okSYKzG3Xaqlnui2iTpWiJNgvayKzZs1fTxcQuKz/vMYgQ==
+"@webrecorder/wabac@^2.22.2":
+  version "2.22.2"
+  resolved "https://registry.yarnpkg.com/@webrecorder/wabac/-/wabac-2.22.2.tgz#9b905bac70f8d8961e804576cdadc9d2bba1e576"
+  integrity sha512-bLuiKPJpVm5jsYXv6/h6A9OK02Jg4WCPzzN72vM0ktHHyY1GUniw0iM4IcZRP3cMx67Ot3ELPe2VULvlEc47oA==
   dependencies:
     "@peculiar/asn1-ecc" "^2.3.4"
     "@peculiar/asn1-schema" "^2.3.3"
@@ -3387,14 +3387,14 @@ register-service-worker@^1.7.2:
   resolved "https://registry.yarnpkg.com/register-service-worker/-/register-service-worker-1.7.2.tgz#6516983e1ef790a98c4225af1216bc80941a4bd2"
   integrity sha512-CiD3ZSanZqcMPRhtfct5K9f7i3OLCcBBWsJjLh1gW9RO/nS94sVzY59iS+fgYBOBqaBpf4EzfqUF3j9IG+xo8A==
 
-replaywebpage@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/replaywebpage/-/replaywebpage-2.3.3.tgz#34e8d6127745d0cd137799eee6702fa8f3867345"
-  integrity sha512-OgnLxB0TKz31jOB6CGfOOzw9DjdIIHu2tSlQSgC6RVo6HCruT+aZ6tFe52ZF/8oc1O4rSLy2vAI6bLMnPjaPyQ==
+replaywebpage@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/replaywebpage/-/replaywebpage-2.3.4.tgz#9a52671f1bb4b7b6766afb3274e3777b36be60fb"
+  integrity sha512-FxBdOC/NACDjxJ6H30QiapcVQRlqFjYDQD8jKlqfX7qZKzpj4dXr3zAE7j1FVnkGhrbIOEDScHejHJXQTb85BQ==
   dependencies:
     "@fortawesome/fontawesome-free" "^5.15.4"
     "@shoelace-style/shoelace" "~2.15.1"
-    "@webrecorder/wabac" "^2.21.3"
+    "@webrecorder/wabac" "^2.22.2"
     bulma "^0.9.3"
     electron-log "^4.4.1"
     electron-updater "^6.3.9"
