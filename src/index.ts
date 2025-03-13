@@ -3,7 +3,7 @@ import { GovArchiveBanner } from "./govarchivebanner";
 import "construct-style-sheets-polyfill";
 
 if (
-  navigator.serviceWorker.controller &&
+  navigator.serviceWorker?.controller &&
   document.currentScript &&
   (document.currentScript as HTMLScriptElement).src.endsWith("banner=1")
 ) {

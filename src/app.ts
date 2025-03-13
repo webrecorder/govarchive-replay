@@ -1,12 +1,7 @@
-import {
-  html,
-  css,
-  LitElement,
-  type TemplateResult,
-  type CSSResultGroup,
-} from "lit";
+import { html, css, LitElement, type CSSResultGroup } from "lit";
 import { serviceWorkerActivated, SWManager } from "replaywebpage/utils";
 import rwpLogoAnimated from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color-animated.svg";
+import rwpLogo from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color.svg";
 import { property } from "lit/decorators.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import { theme } from "./theme";
@@ -31,7 +26,13 @@ declare let self: Window & {
 
 export class ProxyInitApp extends LitElement {
   @property({ type: String })
-  errorMessage?: TemplateResult<1> | string;
+  errorMessage?: string;
+
+  @property({ type: String })
+  collName = "";
+
+  @property({ type: String })
+  collUrl = "";
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -77,7 +78,12 @@ export class ProxyInitApp extends LitElement {
     startingOrigin: string,
     proxyTs: string,
     bannerScript: string,
+    collName?: string,
+    collUrl?: string,
   ) {
+    this.collName = collName || "";
+    this.collUrl = collUrl || "";
+
     const baseUrl = new URL(window.location.href);
     baseUrl.hash = "";
 
@@ -106,13 +112,14 @@ export class ProxyInitApp extends LitElement {
       name: swName,
       scope: "/",
       requireSubdomainIframe: false,
-      appName: "Replay",
+      appName: "GovArchive",
     });
 
     try {
       await swmanager.register();
     } catch (_e) {
-      this.errorMessage = swmanager.renderErrorReport();
+      this.errorMessage = swmanager.errorMsg || "";
+      return;
     }
 
     await serviceWorkerActivated();
@@ -143,22 +150,32 @@ export class ProxyInitApp extends LitElement {
   }
 
   render() {
-    if (this.errorMessage) {
-      return this.errorMessage;
-    }
-
     return html`
       <section
         class="grid min-h-full m-4 gap-4 place-content-center place-items-center"
       >
-        <div
-          aria-label="ReplayWeb.page Logo"
-          role="img"
-          class="*:size-full size-20 inline-block"
+        ${this.errorMessage
+          ? html`
+              <div
+                aria-label="ReplayWeb.page Logo"
+                role="img"
+                class="*:size-full size-6 inline-block"
+              >
+                ${unsafeSVG(rwpLogo)}
+              </div>
+              <p class="text-red-400">${this.errorMessage}</p>
+            `
+          : html` <div
+                aria-label="ReplayWeb.page Logo"
+                role="img"
+                class="*:size-full size-20 inline-block"
+              >
+                ${unsafeSVG(rwpLogoAnimated)}
+              </div>
+              <p>Loading <strong>${this.collName}</strong> Web Archive...</p>`}
+        <a class="mt-8 text-blue-500" href="${this.collUrl}" target="_blank"
+          >(View Full Collection on Browsertrix)</a
         >
-          ${unsafeSVG(rwpLogoAnimated)}
-        </div>
-        Loading web archive...
       </section>
     `;
   }
@@ -197,6 +214,8 @@ export function addArchiveInit() {
       proxyOrigin,
       proxyTs,
       bannerScript,
+      collName,
+      collUrl,
     );
   };
 }
