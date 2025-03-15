@@ -1,10 +1,26 @@
-import { html, css, LitElement, type CSSResultGroup } from "lit";
+import {
+  html,
+  css,
+  LitElement,
+  type CSSResultGroup,
+  type TemplateResult,
+} from "lit";
 import { serviceWorkerActivated, SWManager } from "replaywebpage/utils";
 import rwpLogoAnimated from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color-animated.svg";
 import rwpLogo from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color.svg";
 import { property } from "lit/decorators.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import theme from "./theme";
+
+type InitOpts = {
+  archiveSourceUrl: string;
+  proxyOrigin: string;
+  proxyTs?: string;
+  proxyTLD?: string;
+  bannerScript?: string;
+  collName?: string;
+  collUrl?: string;
+};
 
 declare let self: Window & {
   initWebArchive: ({
@@ -31,13 +47,19 @@ export class ProxyInitApp extends LitElement {
   };
 
   @property({ type: String })
-  errorMessage?: string;
+  errorMessage?: string | TemplateResult<1>;
 
   @property({ type: String })
   collName = "";
 
   @property({ type: String })
   collUrl = "";
+
+  @property({ type: String })
+  proxyOrigin = "";
+
+  @property({ type: String })
+  linkMessage = "(View Full Collection on Browsertrix)";
 
   static get styles(): CSSResultGroup {
     return [
@@ -69,8 +91,8 @@ export class ProxyInitApp extends LitElement {
   }
 
   async initProxyApp(
-    waczFile: string,
-    startingOrigin: string,
+    sourceUrl: string,
+    proxyOrigin: string,
     proxyTs: string,
     proxyTLD: string,
     bannerScript: string,
@@ -79,6 +101,7 @@ export class ProxyInitApp extends LitElement {
   ) {
     this.collName = collName || "";
     this.collUrl = collUrl || "";
+    this.proxyOrigin = proxyOrigin;
 
     const baseUrl = new URL(window.location.href);
     baseUrl.hash = "";
@@ -90,19 +113,29 @@ export class ProxyInitApp extends LitElement {
       msg_type: "addColl",
       name: "proxyreplay",
       type: "wacz",
-      file: { sourceUrl: waczFile },
+      file: { sourceUrl },
       skipExisting: false,
       extraConfig: {
         isLive: false,
         baseUrl: baseUrl.href,
         baseUrlHashReplay: true,
-        proxyOrigin: new URL(startingOrigin).origin,
+        proxyOrigin: new URL(proxyOrigin).origin,
         proxyBannerUrl: bannerURL.href,
         proxyTs,
         proxyTLD,
       },
     };
 
+    await Promise.race([
+      this.initSW(msg),
+      new Promise<void>((resolve) => setTimeout(resolve, 30000)),
+    ]);
+
+    window.location.reload();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async initSW(msg: Record<string, any>) {
     const swName = "sw.js?root=proxyreplay&proxyOriginMode=1";
 
     const swmanager = new SWManager({
@@ -138,12 +171,7 @@ export class ProxyInitApp extends LitElement {
 
     navigator.serviceWorker.controller!.postMessage(msg);
 
-    await Promise.race([
-      p,
-      new Promise<void>((resolve) => setTimeout(resolve, 30000)),
-    ]);
-
-    window.location.reload();
+    await p;
   }
 
   render() {
@@ -169,9 +197,12 @@ export class ProxyInitApp extends LitElement {
               >
                 ${unsafeSVG(rwpLogoAnimated)}
               </div>
-              <p>Loading <strong>${this.collName}</strong> Web Archive...</p>`}
+              <p>
+                Loading <strong>${this.proxyOrigin}</strong> from
+                <strong>${this.collName}</strong> Web Archive...
+              </p>`}
         <a class="mt-8 text-blue-500" href="${this.collUrl}" target="_blank"
-          >(View Full Collection on Browsertrix)</a
+          >${this.linkMessage}</a
         >
       </section>
     `;
@@ -181,25 +212,27 @@ export class ProxyInitApp extends LitElement {
 export function addArchiveInit() {
   customElements.define("web-archive", ProxyInitApp);
 
-  self.initWebArchive = async ({
-    archiveSourceUrl,
-    proxyOrigin,
-    proxyTs = "",
-    proxyTLD = "",
-    bannerScript = "./proxyui.js",
-    collName,
-    collUrl,
-  }: {
-    archiveSourceUrl: string;
-    proxyOrigin: string;
-    proxyTs?: string;
-    proxyTLD?: string;
-    bannerScript?: string;
-    collName?: string;
-    collUrl?: string;
-  }) => {
+  self.initWebArchive = async (opts?: InitOpts, origin?: string) => {
     const elem = document.createElement("web-archive") as ProxyInitApp;
     document.body.appendChild(elem);
+
+    if (!opts) {
+      elem.errorMessage = html`Sorry, we don't have an archive for
+        <strong>${origin}</strong> (yet)`;
+      elem.linkMessage = "Check out Available Collections on GovArchive.us";
+      elem.collUrl = "https://govarchive.us";
+      return;
+    }
+
+    const {
+      archiveSourceUrl,
+      proxyOrigin,
+      proxyTs = "",
+      proxyTLD = "",
+      bannerScript = "./proxyui.js",
+      collName,
+      collUrl,
+    } = opts;
 
     if (collName) {
       self.localStorage.setItem("__wb_collName", collName);
