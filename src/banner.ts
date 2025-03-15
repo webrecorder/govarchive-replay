@@ -82,9 +82,10 @@ export class WBBanner extends LitElement {
         width: 100%;
         background: linear-gradient(0deg, #3a5f09 0%, #4d7c0f 100%);
         font-weight: 500;
-        padding: 0.25rem 0.75rem 0.25rem 1rem;
+        padding: calc(1 * var(--spacing)) calc(3 * var(--spacing))
+          calc(1 * var(--spacing)) calc(4 * var(--spacing));
         display: flex;
-        gap: 1rem;
+        gap: calc(4 * var(--spacing));
         align-content: center;
         border: none;
         border-bottom: solid;
@@ -96,7 +97,7 @@ export class WBBanner extends LitElement {
         background-color: transparent;
         border: 0px;
         cursor: pointer;
-        margin-right: 0.75rem;
+        margin-right: calc(3 * var(--spacing));
       }
       .x-button {
         color: white;
@@ -115,9 +116,9 @@ export class WBBanner extends LitElement {
       }
       .banner-text-container {
         display: flex;
-        gap: 0.25rem;
+        gap: calc(1 * var(--spacing));
         color: white;
-        font-size: 0.75rem;
+        font-size: calc(3 * var(--spacing));
         & summary {
           cursor: pointer;
         }
@@ -132,7 +133,7 @@ export class WBBanner extends LitElement {
         margin: 0;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.5em;
         .chevron {
           transition: 150ms ease transform;
         }
@@ -144,7 +145,7 @@ export class WBBanner extends LitElement {
         background-color: #fefcf7;
         color: black;
         font-weight: 400;
-        padding: 0.75rem 1rem 0.75rem 1rem;
+        padding: calc(3 * var(--spacing)) calc(4 * var(--spacing));
         width: 100%;
         position: absolute;
         left: 0;
@@ -159,7 +160,7 @@ export class WBBanner extends LitElement {
         width: 100%;
         max-width: 960px;
         display: flex;
-        gap: 2rem;
+        gap: calc(8 * var(--spacing));
       }
       @media screen and (max-width: 700px) {
         .details-container {
@@ -169,12 +170,12 @@ export class WBBanner extends LitElement {
       }
       .details-textsection {
         width: 100%;
-        font-size: 0.9rem;
+        font-size: calc(3.6 * var(--spacing));
         && a {
           color: #035b71;
         }
         && p {
-          line-height: 1.2rem;
+          line-height: calc(4.8 * var(--spacing));
         }
       }
       svg {
@@ -204,8 +205,8 @@ export class WBBanner extends LitElement {
           title="ReplayWeb.page"
         >
           <span
-            class="icon"
-            style="color: white; width: 1rem; height: 1rem;"
+            class="icon size-4"
+            style="color: white;"
             aria-label="ReplayWeb.page Logo"
             role="img"
           >
@@ -215,9 +216,7 @@ export class WBBanner extends LitElement {
         <details class="banner-text-container">
           <summary class="banner-text" title="Archive Details">
             You are viewing an archived version of this page from ${dateStr}
-            <span class="icon chevron" style="width: 1rem; height: 1rem;"
-              >${unsafeSVG(chevronDown)}</span
-            >
+            <span class="icon chevron size-4">${unsafeSVG(chevronDown)}</span>
           </summary>
           ${this.renderExpanded()}
         </details>

@@ -26,4 +26,5 @@ behavior when more of our other products support dark mode. */
   --font-mono:
     Recursive, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", monospace; */
+  --spacing: 4px;
 }

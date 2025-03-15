@@ -60,6 +60,7 @@ export class ProxyInitApp extends LitElement {
         height: 300px;
         min-width: 0px;
         flex-direction: column;
+        font-size: 16px;
       }
 
       .error {
