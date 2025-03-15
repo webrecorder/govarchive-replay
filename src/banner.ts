@@ -309,6 +309,8 @@ export class WBBanner extends LitElement {
       await reg?.unregister();
     }
 
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     window.location.reload();
 
     return false;

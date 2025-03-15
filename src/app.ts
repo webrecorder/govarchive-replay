@@ -1,4 +1,10 @@
-import { html, css, LitElement, type CSSResultGroup } from "lit";
+import {
+  html,
+  css,
+  LitElement,
+  type CSSResultGroup,
+  type TemplateResult,
+} from "lit";
 import { serviceWorkerActivated, SWManager } from "replaywebpage/utils";
 import rwpLogoAnimated from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color-animated.svg";
 import rwpLogo from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color.svg";
@@ -41,7 +47,7 @@ export class ProxyInitApp extends LitElement {
   };
 
   @property({ type: String })
-  errorMessage?: string;
+  errorMessage?: string | TemplateResult<1>;
 
   @property({ type: String })
   collName = "";
@@ -51,6 +57,9 @@ export class ProxyInitApp extends LitElement {
 
   @property({ type: String })
   proxyOrigin = "";
+
+  @property({ type: String })
+  linkMessage = "(View Full Collection on Browsertrix)";
 
   static get styles(): CSSResultGroup {
     return [
@@ -189,11 +198,11 @@ export class ProxyInitApp extends LitElement {
                 ${unsafeSVG(rwpLogoAnimated)}
               </div>
               <p>
-                Loading <strong></strong>${this.proxyOrigin}</strong> from
+                Loading <strong>${this.proxyOrigin}</strong> from
                 <strong>${this.collName}</strong> Web Archive...
               </p>`}
         <a class="mt-8 text-blue-500" href="${this.collUrl}" target="_blank"
-          >(View Full Collection on Browsertrix)</a
+          >${this.linkMessage}</a
         >
       </section>
     `;
@@ -208,7 +217,10 @@ export function addArchiveInit() {
     document.body.appendChild(elem);
 
     if (!opts) {
-      elem.errorMessage = `Sorry, we don't have an archive for ${origin} (yet)`;
+      elem.errorMessage = html`Sorry, we don't have an archive for
+        <strong>${origin}</strong> (yet)`;
+      elem.linkMessage = "Check out Available Collections on GovArchive.us";
+      elem.collUrl = "https://govarchive.us";
       return;
     }
 
