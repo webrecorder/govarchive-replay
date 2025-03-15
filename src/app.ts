@@ -72,6 +72,7 @@ export class ProxyInitApp extends LitElement {
     waczFile: string,
     startingOrigin: string,
     proxyTs: string,
+    proxyTLD: string,
     bannerScript: string,
     collName?: string,
     collUrl?: string,
@@ -96,8 +97,9 @@ export class ProxyInitApp extends LitElement {
         baseUrl: baseUrl.href,
         baseUrlHashReplay: true,
         proxyOrigin: new URL(startingOrigin).origin,
-        proxyTs: proxyTs,
         proxyBannerUrl: bannerURL.href,
+        proxyTs,
+        proxyTLD,
       },
     };
 
@@ -183,6 +185,7 @@ export function addArchiveInit() {
     archiveSourceUrl,
     proxyOrigin,
     proxyTs = "",
+    proxyTLD = "",
     bannerScript = "./proxyui.js",
     collName,
     collUrl,
@@ -190,6 +193,7 @@ export function addArchiveInit() {
     archiveSourceUrl: string;
     proxyOrigin: string;
     proxyTs?: string;
+    proxyTLD?: string;
     bannerScript?: string;
     collName?: string;
     collUrl?: string;
@@ -208,6 +212,7 @@ export function addArchiveInit() {
       archiveSourceUrl,
       proxyOrigin,
       proxyTs,
+      proxyTLD,
       bannerScript,
       collName,
       collUrl,
