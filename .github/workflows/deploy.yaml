@@ -1,0 +1,44 @@
+name: Build + Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  deploy_to_bunny:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Yarn Install
+        run: yarn install --frozen-lockfile --ignore-optional
+
+      - name: Build
+        run: yarn build
+
+      - name: Deploy to BunnyCDN
+        uses: ayeressian/bunnycdn-storage-deploy@v2.2.5
+        with:
+          source: "content"
+          destination: "."
+          storageZoneName: "${{ secrets.STORAGE_NAME }}"
+          storagePassword: "${{ secrets.STORAGE_PASSWORD }}"
+          accessKey: "${{ secrets.STORAGE_KEY }}"
+          pullZoneId: "${{ secrets.ZONE_ID }}"
+          upload: "true"
+          remove: "true"
+          purgePullZone: "true"
