@@ -19,6 +19,11 @@ declare let self: Window & {
 };
 
 export class WBBanner extends LitElement {
+  static shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    mode: "closed",
+  };
+
   @state()
   date: Date | null = null;
 
