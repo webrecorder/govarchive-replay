@@ -27,6 +27,9 @@ jobs:
       - name: Yarn Install
         run: yarn install --frozen-lockfile --ignore-optional
 
+      - name: Add dependency 
+        run: yarn add @tailwindcss/oxide-linux-x64-gnu
+
       - name: Build
         run: yarn build
 
