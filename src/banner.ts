@@ -98,6 +98,16 @@ export class WBBanner extends LitElement {
           border-bottom: solid;
           border-color: #a39d8f;
           border-bottom-width: 1px;
+          font-family: var(
+            --default-font-family,
+            ui-sans-serif,
+            system-ui,
+            sans-serif,
+            "Apple Color Emoji",
+            "Segoe UI Emoji",
+            "Segoe UI Symbol",
+            "Noto Color Emoji"
+          );
         }
         .refresh-button {
           color: white;
