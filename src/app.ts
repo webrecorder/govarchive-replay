@@ -39,6 +39,9 @@ export class ProxyInitApp extends LitElement {
   @property({ type: String })
   collUrl = "";
 
+  @property({ type: String })
+  proxyOrigin = "";
+
   static get styles(): CSSResultGroup {
     return [
       theme,
@@ -69,8 +72,8 @@ export class ProxyInitApp extends LitElement {
   }
 
   async initProxyApp(
-    waczFile: string,
-    startingOrigin: string,
+    sourceUrl: string,
+    proxyOrigin: string,
     proxyTs: string,
     proxyTLD: string,
     bannerScript: string,
@@ -79,6 +82,7 @@ export class ProxyInitApp extends LitElement {
   ) {
     this.collName = collName || "";
     this.collUrl = collUrl || "";
+    this.proxyOrigin = proxyOrigin;
 
     const baseUrl = new URL(window.location.href);
     baseUrl.hash = "";
@@ -90,19 +94,29 @@ export class ProxyInitApp extends LitElement {
       msg_type: "addColl",
       name: "proxyreplay",
       type: "wacz",
-      file: { sourceUrl: waczFile },
+      file: { sourceUrl },
       skipExisting: false,
       extraConfig: {
         isLive: false,
         baseUrl: baseUrl.href,
         baseUrlHashReplay: true,
-        proxyOrigin: new URL(startingOrigin).origin,
+        proxyOrigin: new URL(proxyOrigin).origin,
         proxyBannerUrl: bannerURL.href,
         proxyTs,
         proxyTLD,
       },
     };
 
+    await Promise.race([
+      this.initSW(msg),
+      new Promise<void>((resolve) => setTimeout(resolve, 30000)),
+    ]);
+
+    window.location.reload();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async initSW(msg: Record<string, any>) {
     const swName = "sw.js?root=proxyreplay&proxyOriginMode=1";
 
     const swmanager = new SWManager({
@@ -138,12 +152,7 @@ export class ProxyInitApp extends LitElement {
 
     navigator.serviceWorker.controller!.postMessage(msg);
 
-    await Promise.race([
-      p,
-      new Promise<void>((resolve) => setTimeout(resolve, 30000)),
-    ]);
-
-    window.location.reload();
+    await p;
   }
 
   render() {
@@ -169,7 +178,10 @@ export class ProxyInitApp extends LitElement {
               >
                 ${unsafeSVG(rwpLogoAnimated)}
               </div>
-              <p>Loading <strong>${this.collName}</strong> Web Archive...</p>`}
+              <p>
+                Loading ${this.proxyOrigin} from
+                <strong>${this.collName}</strong> Web Archive...
+              </p>`}
         <a class="mt-8 text-blue-500" href="${this.collUrl}" target="_blank"
           >(View Full Collection on Browsertrix)</a
         >
