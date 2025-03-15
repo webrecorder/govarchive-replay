@@ -11,7 +11,7 @@ module.exports = {
   target: "web",
   entry: "./src/index.ts",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "content"),
     filename: `proxyui.js`,
     publicPath: "/",
   },
