@@ -7,7 +7,7 @@ import refreshIcon from "bootstrap-icons/icons/arrow-clockwise.svg";
 import chevronDown from "bootstrap-icons/icons/chevron-down.svg";
 import xIcon from "bootstrap-icons/icons/x-lg.svg";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
-import { theme } from "./theme";
+import theme from "./theme";
 
 declare let self: Window & {
   __wbinfo?: {
@@ -55,12 +55,12 @@ export class WBBanner extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    if (this.shadowRoot) {
-      this.shadowRoot.adoptedStyleSheets = [
-        ...this.shadowRoot.adoptedStyleSheets,
-        theme,
-      ];
-    }
+    // if (this.shadowRoot) {
+    //   this.shadowRoot.adoptedStyleSheets = [
+    //     ...this.shadowRoot.adoptedStyleSheets,
+    //     theme,
+    //   ];
+    // }
     void this.banner?.then((banner) => {
       this.#observer.observe(banner, { box: "border-box" });
     });
@@ -72,125 +72,128 @@ export class WBBanner extends LitElement {
   }
 
   static get styles() {
-    return css`
-      :host {
-        position: fixed;
-        left: 0;
-        top: 0;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: auto !important;
-        z-index: 1000000000;
-      }
-      .banner {
-        width: 100%;
-        background: linear-gradient(0deg, #3a5f09 0%, #4d7c0f 100%);
-        font-weight: 500;
-        padding: calc(1 * var(--spacing)) calc(3 * var(--spacing))
-          calc(1 * var(--spacing)) calc(4 * var(--spacing));
-        display: flex;
-        gap: calc(4 * var(--spacing));
-        align-content: center;
-        border: none;
-        border-bottom: solid;
-        border-color: #a39d8f;
-        border-bottom-width: 1px;
-      }
-      .refresh-button {
-        color: white;
-        background-color: transparent;
-        border: 0px;
-        cursor: pointer;
-        margin-right: calc(3 * var(--spacing));
-      }
-      .x-button {
-        color: white;
-        background-color: transparent;
-        border: 0px;
-        cursor: pointer;
-      }
-      .controls {
-        margin-left: auto;
-        display: flex;
-        flex-direction: row;
-      }
-      .banner-top-line {
-        display: flex;
-        justify-items: space-between;
-      }
-      .banner-text-container {
-        display: flex;
-        gap: calc(1 * var(--spacing));
-        color: white;
-        font-size: calc(3 * var(--spacing));
-        & summary {
+    return [
+      theme,
+      css`
+        :host {
+          position: fixed;
+          left: 0;
+          top: 0;
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: auto !important;
+          z-index: 1000000000;
+        }
+        .banner {
+          width: 100%;
+          background: linear-gradient(0deg, #3a5f09 0%, #4d7c0f 100%);
+          font-weight: 500;
+          padding: calc(1 * var(--spacing)) calc(3 * var(--spacing))
+            calc(1 * var(--spacing)) calc(4 * var(--spacing));
+          display: flex;
+          gap: calc(4 * var(--spacing));
+          align-content: center;
+          border: none;
+          border-bottom: solid;
+          border-color: #a39d8f;
+          border-bottom-width: 1px;
+        }
+        .refresh-button {
+          color: white;
+          background-color: transparent;
+          border: 0px;
+          cursor: pointer;
+          margin-right: calc(3 * var(--spacing));
+        }
+        .x-button {
+          color: white;
+          background-color: transparent;
+          border: 0px;
           cursor: pointer;
         }
-        && summary {
-          list-style: none;
+        .controls {
+          margin-left: auto;
+          display: flex;
+          flex-direction: row;
         }
-        && summary::-webkit-details-marker {
-          display: none;
+        .banner-top-line {
+          display: flex;
+          justify-items: space-between;
         }
-      }
-      .banner-text {
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-        .chevron {
-          transition: 150ms ease transform;
+        .banner-text-container {
+          display: flex;
+          gap: calc(1 * var(--spacing));
+          color: white;
+          font-size: calc(3 * var(--spacing));
+          & summary {
+            cursor: pointer;
+          }
+          && summary {
+            list-style: none;
+          }
+          && summary::-webkit-details-marker {
+            display: none;
+          }
         }
-      }
-      details[open] .chevron {
-        transform: rotate(-180deg);
-      }
-      .details-flexcontainer {
-        background-color: #fefcf7;
-        color: black;
-        font-weight: 400;
-        padding: calc(3 * var(--spacing)) calc(4 * var(--spacing));
-        width: 100%;
-        position: absolute;
-        left: 0;
-        display: flex;
-        justify-content: center;
-        border: none;
-        border-bottom: solid;
-        border-bottom-color: #a39d8f;
-        border-bottom-width: 1px;
-      }
-      .details-container {
-        width: 100%;
-        max-width: 960px;
-        display: flex;
-        gap: calc(8 * var(--spacing));
-      }
-      @media screen and (max-width: 700px) {
+        .banner-text {
+          margin: 0;
+          display: flex;
+          align-items: center;
+          gap: 0.5em;
+          .chevron {
+            transition: 150ms ease transform;
+          }
+        }
+        details[open] .chevron {
+          transform: rotate(-180deg);
+        }
+        .details-flexcontainer {
+          background-color: #fefcf7;
+          color: black;
+          font-weight: 400;
+          padding: calc(3 * var(--spacing)) calc(4 * var(--spacing));
+          width: 100%;
+          position: absolute;
+          left: 0;
+          display: flex;
+          justify-content: center;
+          border: none;
+          border-bottom: solid;
+          border-bottom-color: #a39d8f;
+          border-bottom-width: 1px;
+        }
         .details-container {
-          flex-direction: column;
-          gap: 0;
+          width: 100%;
+          max-width: 960px;
+          display: flex;
+          gap: calc(8 * var(--spacing));
         }
-      }
-      .details-textsection {
-        width: 100%;
-        font-size: calc(3.6 * var(--spacing));
-        && a {
-          color: #035b71;
+        @media screen and (max-width: 700px) {
+          .details-container {
+            flex-direction: column;
+            gap: 0;
+          }
         }
-        && p {
-          line-height: calc(4.8 * var(--spacing));
+        .details-textsection {
+          width: 100%;
+          font-size: calc(3.6 * var(--spacing));
+          && a {
+            color: #035b71;
+          }
+          && p {
+            line-height: calc(4.8 * var(--spacing));
+          }
         }
-      }
-      svg {
-        width: 100%;
-        height: 100%;
-      }
-      .icon {
-        display: inline-block;
-      }
-    `;
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+        .icon {
+          display: inline-block;
+        }
+      `,
+    ];
   }
 
   protected firstUpdated(): void {
@@ -203,7 +206,7 @@ export class WBBanner extends LitElement {
     const dateStr = this.date ? dateTimeFormatter.format(this.date) : "";
 
     return html`
-      <header class="banner">
+      <header class="banner root">
         <a
           href="https://webrecorder.net/replaywebpage"
           target="_blank"

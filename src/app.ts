@@ -4,7 +4,7 @@ import rwpLogoAnimated from "@webrecorder/hickory/icons/brand/replaywebpage-icon
 import rwpLogo from "@webrecorder/hickory/icons/brand/replaywebpage-icon-color.svg";
 import { property } from "lit/decorators.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
-import { theme } from "./theme";
+import theme from "./theme";
 
 declare let self: Window & {
   initWebArchive: ({
@@ -25,6 +25,11 @@ declare let self: Window & {
 };
 
 export class ProxyInitApp extends LitElement {
+  static shadowRootOptions: ShadowRootInit = {
+    ...LitElement.shadowRootOptions,
+    mode: "closed",
+  };
+
   @property({ type: String })
   errorMessage?: string;
 
@@ -34,44 +39,33 @@ export class ProxyInitApp extends LitElement {
   @property({ type: String })
   collUrl = "";
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    if (this.shadowRoot) {
-      this.shadowRoot.adoptedStyleSheets = [
-        ...this.shadowRoot.adoptedStyleSheets,
-        theme,
-      ];
-    }
-  }
-
   static get styles(): CSSResultGroup {
-    return ProxyInitApp.appStyles;
-  }
+    return [
+      theme,
+      css`
+        :host {
+          position: fixed;
+          left: 0px;
+          top: 0px;
+          bottom: 0px;
+          right: 0px;
+          display: flex;
+          height: 300px;
+          min-width: 0px;
+          flex-direction: column;
+          font-size: 16px;
+        }
 
-  static get appStyles(): CSSResultGroup {
-    return css`
-      :host {
-        position: fixed;
-        left: 0px;
-        top: 0px;
-        bottom: 0px;
-        right: 0px;
-        display: flex;
-        height: 300px;
-        min-width: 0px;
-        flex-direction: column;
-        font-size: 16px;
-      }
+        .error {
+          white-space: pre-wrap;
+          margin-bottom: 2em;
+        }
 
-      .error {
-        white-space: pre-wrap;
-        margin-bottom: 2em;
-      }
-
-      section.container {
-        margin: auto;
-      }
-    `;
+        section.container {
+          margin: auto;
+        }
+      `,
+    ];
   }
 
   async initProxyApp(

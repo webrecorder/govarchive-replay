@@ -1,6 +1,5 @@
 import { addArchiveInit } from "./app";
 import { GovArchiveBanner } from "./govarchivebanner";
-import "construct-style-sheets-polyfill";
 
 if (
   navigator.serviceWorker?.controller &&
