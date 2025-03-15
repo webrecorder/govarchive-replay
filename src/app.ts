@@ -6,6 +6,16 @@ import { property } from "lit/decorators.js";
 import { unsafeSVG } from "lit/directives/unsafe-svg.js";
 import theme from "./theme";
 
+type InitOpts = {
+  archiveSourceUrl: string;
+  proxyOrigin: string;
+  proxyTs?: string;
+  proxyTLD?: string;
+  bannerScript?: string;
+  collName?: string;
+  collUrl?: string;
+};
+
 declare let self: Window & {
   initWebArchive: ({
     archiveSourceUrl,
@@ -179,7 +189,7 @@ export class ProxyInitApp extends LitElement {
                 ${unsafeSVG(rwpLogoAnimated)}
               </div>
               <p>
-                Loading ${this.proxyOrigin} from
+                Loading <strong></strong>${this.proxyOrigin}</strong> from
                 <strong>${this.collName}</strong> Web Archive...
               </p>`}
         <a class="mt-8 text-blue-500" href="${this.collUrl}" target="_blank"
@@ -193,25 +203,24 @@ export class ProxyInitApp extends LitElement {
 export function addArchiveInit() {
   customElements.define("web-archive", ProxyInitApp);
 
-  self.initWebArchive = async ({
-    archiveSourceUrl,
-    proxyOrigin,
-    proxyTs = "",
-    proxyTLD = "",
-    bannerScript = "./proxyui.js",
-    collName,
-    collUrl,
-  }: {
-    archiveSourceUrl: string;
-    proxyOrigin: string;
-    proxyTs?: string;
-    proxyTLD?: string;
-    bannerScript?: string;
-    collName?: string;
-    collUrl?: string;
-  }) => {
+  self.initWebArchive = async (opts?: InitOpts, origin?: string) => {
     const elem = document.createElement("web-archive") as ProxyInitApp;
     document.body.appendChild(elem);
+
+    if (!opts) {
+      elem.errorMessage = `Sorry, we don't have an archive for ${origin} (yet)`;
+      return;
+    }
+
+    const {
+      archiveSourceUrl,
+      proxyOrigin,
+      proxyTs = "",
+      proxyTLD = "",
+      bannerScript = "./proxyui.js",
+      collName,
+      collUrl,
+    } = opts;
 
     if (collName) {
       self.localStorage.setItem("__wb_collName", collName);

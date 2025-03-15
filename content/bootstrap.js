@@ -51,17 +51,17 @@ function matchCollection() {
     return;
   }
   const hostParts = window.location.host.split(".")[0].split("-");
-  const orig = hostParts.join(".") + ".gov";
+  const origin = hostParts.join(".") + ".gov";
 
   for (let i = 0; i < hostParts.length; i++) {
     const name = hostParts.slice(i).join(".") + ".gov";
     if (collections[name]) {
       const data = collections[name];
       // if not an exact match, override proxyOrigin
-      if (name !== orig) {
-        data.proxyOrigin = "https://" + orig;
+      if (name !== origin) {
+        data.proxyOrigin = "https://" + origin;
       }
-      data.bannerScript = "/proxyui.js";
+      data.bannerScript = "https://static.govarchive.us/proxyui.js";
       data.proxyTLD = ".gov";
       return data;
     }
@@ -70,6 +70,4 @@ function matchCollection() {
 
 const coll = matchCollection();
 
-if (coll) {
-  window.initWebArchive(coll);
-}
+window.initWebArchive(coll, origin);
