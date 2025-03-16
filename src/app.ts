@@ -17,6 +17,7 @@ type InitOpts = {
   proxyOrigin: string;
   proxyTs?: string;
   proxyTLD?: string;
+  localTLD?: string;
   bannerScript?: string;
   collName?: string;
   collUrl?: string;
@@ -95,6 +96,7 @@ export class ProxyInitApp extends LitElement {
     proxyOrigin: string,
     proxyTs: string,
     proxyTLD: string,
+    localTLD: string,
     bannerScript: string,
     collName?: string,
     collUrl?: string,
@@ -123,6 +125,7 @@ export class ProxyInitApp extends LitElement {
         proxyBannerUrl: bannerURL.href,
         proxyTs,
         proxyTLD,
+        localTLD
       },
     };
 
@@ -229,6 +232,7 @@ export function addArchiveInit() {
       proxyOrigin,
       proxyTs = "",
       proxyTLD = "",
+      localTLD = "",
       bannerScript = "./proxyui.js",
       collName,
       collUrl,
@@ -246,6 +250,7 @@ export function addArchiveInit() {
       proxyOrigin,
       proxyTs,
       proxyTLD,
+      localTLD,
       bannerScript,
       collName,
       collUrl,
