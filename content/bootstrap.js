@@ -63,6 +63,7 @@ function matchCollection() {
       }
       data.bannerScript = "https://static.govarchive.us/proxyui.js";
       data.proxyTLD = ".gov";
+      data.localTLD = ".govarchive.us";
       return data;
     }
   }
