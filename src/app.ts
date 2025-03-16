@@ -125,7 +125,7 @@ export class ProxyInitApp extends LitElement {
         proxyBannerUrl: bannerURL.href,
         proxyTs,
         proxyTLD,
-        localTLD
+        localTLD,
       },
     };
 

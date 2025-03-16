@@ -46,20 +46,22 @@ const collections = {
   },
 };
 
+let origHost = "";
+
 function matchCollection() {
   if (!window.location.host.endsWith(".govarchive.us")) {
     return;
   }
   const hostParts = window.location.host.split(".")[0].split("-");
-  const origin = hostParts.join(".") + ".gov";
+  origHost = hostParts.join(".") + ".gov";
 
   for (let i = 0; i < hostParts.length; i++) {
     const name = hostParts.slice(i).join(".") + ".gov";
     if (collections[name]) {
       const data = collections[name];
       // if not an exact match, override proxyOrigin
-      if (name !== origin) {
-        data.proxyOrigin = "https://" + origin;
+      if (name !== origHost) {
+        data.proxyOrigin = "https://" + origHost;
       }
       data.bannerScript = "https://static.govarchive.us/proxyui.js";
       data.proxyTLD = ".gov";
@@ -71,4 +73,4 @@ function matchCollection() {
 
 const coll = matchCollection();
 
-window.initWebArchive(coll, origin);
+window.initWebArchive(coll, origHost);
