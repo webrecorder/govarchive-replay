@@ -360,11 +360,14 @@ export class WBBanner extends LitElement {
       html.style.marginTop = "37.5px";
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-      document.body.appendChild(banner);
+    document.addEventListener("readystatechange", () => {
+      if (document.querySelector(tagName)) {
+        return;
+      }
+      document.body.prepend(banner);
       setInterval(() => {
         if (!document.querySelector(tagName)) {
-          document.body.appendChild(banner);
+          document.body.prepend(banner);
         }
       }, 1000);
     });
