@@ -355,19 +355,22 @@ export class WBBanner extends LitElement {
         wbinfo.collUrl || localStorage.getItem("__wb_collUrl") || "";
     }
 
-    const html = document.querySelector("html");
-    if (html) {
-      html.style.marginTop = "37.5px";
-    }
+    const setupBanner = () => {
+      document.body.prepend(banner);
+      const html = document.querySelector("html");
+      if (html) {
+        html.style.marginTop = "37.5px";
+      }
+    };
 
     document.addEventListener("readystatechange", () => {
       if (document.querySelector(tagName)) {
         return;
       }
-      document.body.prepend(banner);
+      setupBanner();
       setInterval(() => {
         if (!document.querySelector(tagName)) {
-          document.body.prepend(banner);
+          setupBanner();
         }
       }, 1000);
     });
