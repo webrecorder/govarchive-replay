@@ -383,5 +383,7 @@ function addAnalytics() {
     "https://wab.ac/proxy/https://p.webrecorder.net/js/script.outbound-links.js";
   script.defer = true;
   script.dataset.domain = "govarchive.us";
+  script.dataset.api =
+    "https://wab.ac/proxy/https://p.webrecorder.net/api/event";
   document.head.appendChild(script);
 }
