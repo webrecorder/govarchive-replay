@@ -42,7 +42,34 @@ const collections = {
     proxyOrigin: "https://globalchange.gov",
     collName: "Global Change Research Program",
     collUrl:
-      "https://app.browsertrix.com/explore/usgov-archive/collections/u-s-global-change-research-program",
+      "https://app.browsertrix.com/explore/usgov-archive/collections/global-change-research-program",
+  },
+
+  "climate.gov": {
+    archiveSourceUrl:
+      "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/5f4ac934-3f79-433b-83af-409c5a854029/public/replay.json",
+    proxyOrigin: "https://www.climate.gov",
+    collName: "Climate.gov + Dashboards",
+    collUrl:
+      "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/5f4ac934-3f79-433b-83af-409c5a854029/public/replay.json",
+  },
+
+  "fema.gov": {
+    archiveSourceUrl:
+      "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/da8be36a-a031-4294-bdfe-62b5b7cf015b/public/replay.json",
+    proxyOrigin: "https://www.fema.gov",
+    collName: "FEMA",
+    collUrl:
+      "https://app.browsertrix.com/explore/usgov-archive/collections/fema",
+  },
+
+  "ed.gov": {
+    archiveSourceUrl:
+      "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/094fc656-f4f9-4b0d-8d9f-56d96d8aea98/public/replay.json",
+    proxyOrigin: "https://www.ed.gov",
+    collname: "Department of Education",
+    collUrl:
+      "https://app.browsertrix.com/explore/usgov-archive/collections/department-of-education",
   },
 };
 
