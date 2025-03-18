@@ -1,1 +1,3 @@
-importScripts("https://cdn.jsdelivr.net/npm/@webrecorder/wabac@2.22.3/dist/sw.js");
+importScripts(
+  "https://cdn.jsdelivr.net/npm/@webrecorder/wabac@2.22.4/dist/sw.js",
+);
