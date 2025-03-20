@@ -60,7 +60,7 @@ export class ProxyInitApp extends LitElement {
   proxyOrigin = "";
 
   @property({ type: String })
-  linkMessage = "(View Full Collection on Browsertrix)";
+  linkMessage = "Browser Collection on Browsertrix";
 
   static get styles(): CSSResultGroup {
     return [
@@ -201,7 +201,7 @@ export class ProxyInitApp extends LitElement {
                 ${unsafeSVG(rwpLogoAnimated)}
               </div>
               <p>
-                Loading <strong>${this.proxyOrigin}</strong> from
+                Loading <strong>${this.proxyOrigin}</strong> mirror from
                 <strong>${this.collName}</strong> Web Archive...
               </p>`}
         <a class="mt-8 text-blue-500" href="${this.collUrl}" target="_blank"
