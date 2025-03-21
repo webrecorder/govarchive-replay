@@ -60,7 +60,7 @@ export class ProxyInitApp extends LitElement {
   proxyOrigin = "";
 
   @property({ type: String })
-  linkMessage = "Browser Collection on Browsertrix";
+  linkMessage = "View Full Collection in Browsertrix";
 
   static get styles(): CSSResultGroup {
     return [

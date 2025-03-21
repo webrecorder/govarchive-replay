@@ -71,6 +71,15 @@ const collections = {
     collUrl:
       "https://app.browsertrix.com/explore/usgov-archive/collections/department-of-education",
   },
+
+  "imls.gov": {
+    archiveSourceUrl:
+      "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/1614e425-a3f5-4155-98fe-38099651c680/public/replay.json",
+    proxyOrigin: "https://www.imls.gov",
+    collName: "IMLS",
+    collUrl:
+      "https://app.browsertrix.com/explore/usgov-archive/collections/imls",
+  },
 };
 
 let origHost = "";
