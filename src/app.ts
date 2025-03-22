@@ -60,7 +60,7 @@ export class ProxyInitApp extends LitElement {
   proxyOrigin = "";
 
   @property({ type: String })
-  linkMessage = "View Full Collection in Browsertrix";
+  linkMessage = "View Full Collection from Browsertrix";
 
   static get styles(): CSSResultGroup {
     return [
@@ -202,7 +202,7 @@ export class ProxyInitApp extends LitElement {
               </div>
               <p>
                 Loading <strong>${this.proxyOrigin}</strong> mirror from
-                <strong>${this.collName}</strong> Web Archive...
+                <strong>${this.collName}</strong> Collection
               </p>`}
         <a class="mt-8 text-blue-500" href="${this.collUrl}" target="_blank"
           >${this.linkMessage}</a
@@ -220,9 +220,9 @@ export function addArchiveInit() {
     document.body.appendChild(elem);
 
     if (!opts) {
-      elem.errorMessage = html`Sorry, we don't have an archive for
+      elem.errorMessage = html`Sorry, we don't have a mirror for
         <strong>${origin}</strong> (yet)`;
-      elem.linkMessage = "Check out Available Collections on GovArchive.us";
+      elem.linkMessage = "Check out the available mirrors on GovArchive.us";
       elem.collUrl = "https://govarchive.us";
       return;
     }
