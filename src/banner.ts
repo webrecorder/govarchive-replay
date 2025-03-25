@@ -1,7 +1,7 @@
 import { html, css, LitElement } from "lit";
 import { property, queryAsync, state } from "lit/decorators.js";
 
-import { tsToDate, dateTimeFormatter } from "replaywebpage/utils";
+import { dateTimeFormatter } from "replaywebpage/utils";
 import rwpIcon from "@webrecorder/hickory/icons/brand/replaywebpage-icon-solid.svg";
 import refreshIcon from "bootstrap-icons/icons/arrow-clockwise.svg";
 import chevronDown from "bootstrap-icons/icons/chevron-down.svg";
@@ -208,7 +208,7 @@ export class WBBanner extends LitElement {
 
   protected firstUpdated(): void {
     if (this.timestamp) {
-      this.date = tsToDate(this.timestamp) as Date;
+      this.date = new Date(this.timestamp);
     }
   }
 
