@@ -51,7 +51,7 @@ const collections = {
     proxyOrigin: "https://www.climate.gov",
     collName: "Climate.gov + Dashboards",
     collUrl:
-      "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/5f4ac934-3f79-433b-83af-409c5a854029/public/replay.json",
+      "https://app.browsertrix.com/explore/usgov-archive/collections/climate-gov-dashboard",
   },
 
   "fema.gov": {
