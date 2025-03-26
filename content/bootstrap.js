@@ -40,6 +40,7 @@ const collections = {
     archiveSourceUrl:
       "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/29db8c5a-7e2c-400a-a239-d0da78a340f5/public/replay.json",
     proxyOrigin: "https://globalchange.gov",
+    proxyTs: "20241116",
     collName: "Global Change Research Program",
     collUrl:
       "https://app.browsertrix.com/explore/usgov-archive/collections/global-change-research-program",
