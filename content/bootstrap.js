@@ -81,6 +81,15 @@ const collections = {
     collUrl:
       "https://app.browsertrix.com/explore/usgov-archive/collections/imls",
   },
+
+  "covid.gov": {
+    archiveSourceUrl:
+      "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/0362fd57-0c70-430e-b383-681e3fb4fb90/public/replay.json",
+    proxyOrigin: "https://www.covid.gov",
+    collName: "COVID",
+    collUrl:
+      "https://app.browsertrix.com/explore/usgov-archive/collections/covid-gov",
+  },
 };
 
 let origHost = "";
