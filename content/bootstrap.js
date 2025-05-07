@@ -90,6 +90,15 @@ const collections = {
     collUrl:
       "https://app.browsertrix.com/explore/usgov-archive/collections/covid-gov",
   },
+
+  "coralreef.gov": {
+    archiveSourceUrl:
+      "https://app.browsertrix.com/api/orgs/75f05fd9-ffe0-447d-be70-66d1e4bc4b6d/collections/cd365a2b-b0f4-433c-8176-d4999aa2ce42/public/replay.json",
+    proxyOrigin: "https://coralreef.gov",
+    collName: "Coral Reef",
+    collUrl:
+      "https://app.browsertrix.com/explore/usgov-archive/collections/coralreef-gov",
+  },
 };
 
 let origHost = "";
